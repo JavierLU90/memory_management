@@ -122,7 +122,7 @@ bool snek_array_set(snek_object_t *snek_obj, size_t index, snek_object_t *value)
     return true;
 }
   
-  snek_object_t *snek_array_get(snek_object_t *snek_obj, size_t index) {
+snek_object_t *snek_array_get(snek_object_t *snek_obj, size_t index) {
     if (snek_obj == NULL) return NULL;
     if (snek_obj->kind != ARRAY) return NULL;
     if (snek_obj->data.v_array.size <= index) return NULL;
@@ -163,14 +163,14 @@ snek_object_t *snek_add(snek_object_t *a, snek_object_t *b) {
                     return new_snek_float((float)a->data.v_int + b->data.v_float);
                 default:
                     return NULL;
-        }
+            }
         case FLOAT:
             switch (b->kind) {
                 case FLOAT:
                     return new_snek_float(a->data.v_float + b->data.v_float);
                 default:
                     return snek_add(b, a);
-        }
+            }
         case STRING:
             switch (b->kind) {
                 case STRING: {
@@ -200,7 +200,7 @@ snek_object_t *snek_add(snek_object_t *a, snek_object_t *b) {
                     );
                 default:
                     return NULL;
-        }
+            }
         case ARRAY:
             switch (b->kind) {
                 case ARRAY: {
@@ -219,11 +219,11 @@ snek_object_t *snek_add(snek_object_t *a, snek_object_t *b) {
                     }
             
                     return array;
+                }
+                default:
+                    return NULL;
             }
-            default:
-                return NULL;
-        }
-    default:
-        return NULL;
+        default:
+            return NULL;
     }
 }  
